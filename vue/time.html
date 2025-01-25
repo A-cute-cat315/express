@@ -1,0 +1,23 @@
+<script src="https://unpkg.com/vue@3.5.0/dist/vue.global.js"></script>
+<div id="app">
+  <span>現在の日時: {{currentDateTime.toLocaleString()}}</span>
+</div>
+
+<script>
+  Vue.createApp({
+    data: function() {
+      return {
+        currentDateTime: new Date()  // Vueのデータオブジェクトに現在日時を設定
+      }
+    },
+    created: function() {
+      let self = this
+      this.timer = setInterval(function() {
+        self.currentDateTime = new Date()  // 1秒ごとに現在日時を更新するタイマーを設定
+      }, 1000)
+    },
+    beforeUnmount: function() {
+      clearInterval(this.timer)  // Vueコンポーネントのアンマウント前にタイマーをクリア
+    }
+  }).mount('#app')
+</script>
